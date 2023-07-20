@@ -92,6 +92,8 @@ struct STX {
 auto TPGetValue = reinterpret_cast<const char* (*)(TPFILE* tpf, const char* label)>(0x483b30);
 auto SCtrlReadExpList = reinterpret_cast<int (*)(const char* value, const char* format, PLAYER_CACHE* pcache, DWORD* TEMP, ...)>(0x47d780);
 auto FreeExpression = reinterpret_cast<void (*)(EVAL_EXP* ptr)>(0x406e00);
+auto Warn = reinterpret_cast<void (*)(PLAYER* p, const char *str)>(0x4155f0);
+auto VWarn = reinterpret_cast<void (*)(PLAYER * p, const char* format, ...)>(0x415630);
 
 #ifdef STCEX
 #define CLASS_DECLSPECEC extern "C" __declspec(dllexport)
@@ -102,10 +104,9 @@ auto FreeExpression = reinterpret_cast<void (*)(EVAL_EXP* ptr)>(0x406e00);
 #endif
 
 CLASS_DECLSPECEC void addState(STX stx);
-CLASS_DECLSPEC void setErrorText(const char* error);
-CLASS_DECLSPEC void setErrorText(const char* state, const char* error);
+CLASS_DECLSPECEC void setErrorText(const char* error);
 CLASS_DECLSPECEC int GetQuotedString(TPFILE* tpf, const char* label, const char* dest, size_t size); // if ERROR return 0
-CLASS_DECLSPEC void constExp(EVAL_EXP*, int);
-CLASS_DECLSPEC void constExp(EVAL_EXP*, float);
-CLASS_DECLSPEC int EvalExpression(PLAYER*, EVAL_EXP*, int);
-CLASS_DECLSPEC float EvalExpression(PLAYER*, EVAL_EXP*);
+CLASS_DECLSPEC void constExp(EVAL_EXP* ptr, int value);
+CLASS_DECLSPEC void constExp(EVAL_EXP* ptr, float value);
+CLASS_DECLSPEC int EvalExpression(PLAYER* p, EVAL_EXP* ptr, int warnNo);
+CLASS_DECLSPEC float EvalExpression(PLAYER* p, EVAL_EXP* ptr);
