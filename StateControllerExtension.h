@@ -84,9 +84,9 @@ struct EVAL_EXP {
 
 struct STX {
     string type = "";
-    void* reg = NULL;
-    void* proc = NULL;
-    void* free = NULL;
+    int (*reg)(TPFILE*, STATE_INFO*, PLAYER_CACHE*) = NULL;
+    void (*proc)(PLAYER*, STATE_INFO*) = NULL;
+    void (*free)(STATE_INFO*) = NULL;
 };
 
 auto TPGetValue = reinterpret_cast<const char* (*)(TPFILE* tpf, const char* label)>(0x483b30);
