@@ -24,7 +24,7 @@ enum HOOK_CODE {
 
 CLASS_DECLSPEC void LoadAllDLL(const fs::path& dirpath, const char* ex);
 CLASS_DECLSPEC void FreeAllDLL(const fs::path& dirpath, const char* ex);
-CLASS_DECLSPEC void Hook(DWORD target, DWORD callback, H_TYPE flag);
-CLASS_DECLSPEC void writeBytesToROM(DWORD target, void* bytes, size_t size);
-CLASS_DECLSPEC void readBytesFromMem(DWORD target, void* bytes, size_t size);
-CLASS_DECLSPEC void writeGotoOpcode(DWORD target, DWORD addr, H_TYPE mode);
+CLASS_DECLSPEC void Hook(void* target, void* callback, H_TYPE flag);
+CLASS_DECLSPEC void writeBytesToROM(void* target, BYTE* bytes, size_t size);
+CLASS_DECLSPEC void readBytesFromMem(void* target, BYTE* bytes, size_t size);
+CLASS_DECLSPEC void writeGotoOpcode(void* target, void* addr, H_TYPE mode);

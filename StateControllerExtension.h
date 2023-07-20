@@ -8,7 +8,6 @@ struct DATE {
     int Day;
 };
 
-
 struct COORD3D {
     float x;
     float y;
@@ -48,7 +47,6 @@ struct TPFILE {
     void* unknown;
 };
 
-
 struct PLAYER {
     PLAYER_CACHE* pcache;
     int pID;
@@ -84,8 +82,11 @@ struct EVAL_EXP {
     int value = 0;
 };
 
-struct EXP_STR {
-    string str = "";
+struct STX {
+    string type = "";
+    void* reg = NULL;
+    void* proc = NULL;
+    void* free = NULL;
 };
 
 auto TPGetValue = reinterpret_cast<const char* (*)(TPFILE* tpf, const char* label)>(0x483b30);
@@ -100,8 +101,10 @@ auto FreeExpression = reinterpret_cast<void (*)(EVAL_EXP* ptr)>(0x406e00);
 #define CLASS_DECLSPEC __declspec(dllimport)
 #endif
 
-
-CLASS_DECLSPECEC void addState(string, DWORD, DWORD, DWORD);
+CLASS_DECLSPECEC void addState(STX stx);
+CLASS_DECLSPEC void setErrorText(const char* error);
+CLASS_DECLSPEC void setErrorText(const char* state, const char* error);
+CLASS_DECLSPECEC int GetQuotedString(TPFILE* tpf, const char* label, const char* dest, size_t size); // if ERROR return 0
 CLASS_DECLSPEC void constExp(EVAL_EXP*, int);
 CLASS_DECLSPEC void constExp(EVAL_EXP*, float);
 CLASS_DECLSPEC int EvalExpression(PLAYER*, EVAL_EXP*, int);
